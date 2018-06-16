@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "78365520928",
+    "firebase_url": "https://ponto7-uni7-equipe.firebaseio.com",
+    "project_id": "ponto7-uni7-equipe",
+    "storage_bucket": "ponto7-uni7-equipe.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:78365520928:android:98544f038cf754b5",
+        "android_client_info": {
+          "package_name": "br.edu.uni7.edilberto.ponto7"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "78365520928-6glqf4m4nncpe1peab26dmso81i0ammt.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "78365520928-6glqf4m4nncpe1peab26dmso81i0ammt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyABmZaJ7XXJ5pCiveWqFP9WE1XDlnlTErs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
