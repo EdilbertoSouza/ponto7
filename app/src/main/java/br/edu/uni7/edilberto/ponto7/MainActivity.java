@@ -1,6 +1,0 @@
-package br.edu.uni7.edilberto.ponto7;
-
-import android.support.v7.app.AppCompatActivity;
-
-public class MainActivity extends AppCompatActivity {
-}
