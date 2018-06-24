@@ -1,6 +1,7 @@
 package br.edu.uni7.edilberto.ponto7.util;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -30,9 +31,31 @@ public class DataHora {
         return sdf.format(data);
     }
 
+    public static Date stod(String data){
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+        try{
+            return  sdf.parse(data);
+        } catch (ParseException e){
+            //TODO não sei como lidar com esse possível erro
+            e.printStackTrace();
+            return new Date();
+        }
+    }
+
     public static String htos(Date hora) {
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
         return sdf.format(hora);
+    }
+
+    public static Date stoh(String data){
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+        try{
+            return  sdf.parse(data);
+        } catch (ParseException e){
+            //TODO não sei como lidar com esse possível erro
+            e.printStackTrace();
+            return new Date();
+        }
     }
 
     public static String saudacao() {

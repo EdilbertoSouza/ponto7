@@ -29,11 +29,13 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 import br.edu.uni7.edilberto.ponto7.R;
 import br.edu.uni7.edilberto.ponto7.model.Colaborador;
 import br.edu.uni7.edilberto.ponto7.model.Empresa;
 import br.edu.uni7.edilberto.ponto7.model.Registro;
+import br.edu.uni7.edilberto.ponto7.util.DataHora;
 
 import static br.edu.uni7.edilberto.ponto7.util.DataHora.dataAtual;
 import static br.edu.uni7.edilberto.ponto7.util.DataHora.dataExtenso;
@@ -69,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView tvHora2;
     private TextView tvHora3;
     private TextView tvHora4;
+    private TextView tvHorasFeitas;
     private Button btRegistrar;
     private ProgressBar pbLoading;
 
@@ -92,6 +95,7 @@ public class MainActivity extends AppCompatActivity {
         tvHora2 = findViewById(R.id.tv_hora2);
         tvHora3 = findViewById(R.id.tv_hora3);
         tvHora4 = findViewById(R.id.tv_hora4);
+        tvHorasFeitas = findViewById(R.id.tv_horas_feitas);
         btRegistrar = findViewById(R.id.bt_registrar);
         btRegistrar.setOnClickListener(btRegistrarOnClickListener);
         btRegistrar.setVisibility(View.INVISIBLE);
@@ -220,6 +224,7 @@ public class MainActivity extends AppCompatActivity {
                             if (registro.getHora2() != null) tvHora2.setText("1ª Saída..: " + registro.getHora2());
                             if (registro.getHora3() != null) tvHora3.setText("2ª Entrada: " + registro.getHora3());
                             if (registro.getHora4() != null) tvHora4.setText("2ª Saída..: " + registro.getHora4());
+                            tvHorasFeitas.setText("Foram feitas: " + String.valueOf(calcularHorasFeitasHoje())+" horas");
                         }
                     }
 
@@ -363,4 +368,40 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    long calcularHorasFeitasHoje(){
+        return calcularMinutosFeitosHoje()/60;
+    }
+
+    long calcularMinutosFeitosHoje(){
+        if(registro != null){
+            if(registro.getHora1()!=null&&registro.getHora2()==null){
+                Date dataHora1 = DataHora.stoh(registro.getHora1());
+                //TODO teriamos que fazer um timer ou coisa parecida para isso funcionar direito
+                long diff = dataAtual().getTime() - dataHora1.getTime();
+                return TimeUnit.MILLISECONDS.toMinutes(diff);
+            }
+            if(registro.getHora1()!=null&&registro.getHora2()!=null&&registro.getHora3()==null){
+                Date dataHora1 = DataHora.stoh(registro.getHora1());
+                Date dataHora2 = DataHora.stoh(registro.getHora2());
+                long diff = dataHora2.getTime() - dataHora1.getTime();
+                return TimeUnit.MILLISECONDS.toMinutes(diff);
+            }
+            if(registro.getHora1()!=null&&registro.getHora2()!=null&&registro.getHora3()!=null&&registro.getHora4()==null){
+                Date dataHora1 = DataHora.stoh(registro.getHora1());
+                Date dataHora2 = DataHora.stoh(registro.getHora2());
+                Date dataHora3 = DataHora.stoh(registro.getHora3());
+                long diff1 = dataHora2.getTime() - dataHora1.getTime();
+                long diff2 = dataAtual().getTime() - dataHora3.getTime();
+                return TimeUnit.MILLISECONDS.toMinutes(diff1)+TimeUnit.MILLISECONDS.toMinutes(diff2);
+            }
+            Date dataHora1 = DataHora.stoh(registro.getHora1());
+            Date dataHora2 = DataHora.stoh(registro.getHora2());
+            Date dataHora3 = DataHora.stoh(registro.getHora3());
+            Date dataHora4 = DataHora.stoh(registro.getHora4());
+            long diff1 = dataHora2.getTime() - dataHora1.getTime();
+            long diff2 = dataHora4.getTime() - dataHora3.getTime();
+            return TimeUnit.MILLISECONDS.toMinutes(diff1)+TimeUnit.MILLISECONDS.toMinutes(diff2);
+        }
+        return 0;
+    }
 }
