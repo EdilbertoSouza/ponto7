@@ -84,22 +84,7 @@ public class MainActivity extends AppCompatActivity {
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        tvDataAtual = findViewById(R.id.tv_data_atual);
-        tvSaudacao = findViewById(R.id.tv_saudacao);
-        tvNomeColaborador = findViewById(R.id.tv_nome_colaborador);
-        tvJornadaColaborador = findViewById(R.id.tv_jornada_colaborador);
-        tvNomeEmpresa = findViewById(R.id.tv_nome_empresa);
-        tvEnderecoEmpresa = findViewById(R.id.tv_endereco_empresa);
-
-        tvHora1 = findViewById(R.id.tv_hora1);
-        tvHora2 = findViewById(R.id.tv_hora2);
-        tvHora3 = findViewById(R.id.tv_hora3);
-        tvHora4 = findViewById(R.id.tv_hora4);
-        tvHorasFeitas = findViewById(R.id.tv_horas_feitas);
-        btRegistrar = findViewById(R.id.bt_registrar);
-        btRegistrar.setOnClickListener(btRegistrarOnClickListener);
-        btRegistrar.setVisibility(View.INVISIBLE);
-        pbLoading = findViewById(R.id.pb_loading);
+        initializeViewUI();
 
         Intent intent = new Intent(MainActivity.this, LoginActivity.class);
         intent.putExtra("empresa", "uni7");
@@ -109,6 +94,33 @@ public class MainActivity extends AppCompatActivity {
         //Toolbar toolbar = findViewById(R.id.tb_main);
         //setSupportActionBar(toolbar);
     }
+
+    private void initializeViewUI() {
+        tvDataAtual = findViewById(R.id.tv_data_atual);
+        tvSaudacao = findViewById(R.id.tv_saudacao);
+        tvNomeColaborador = findViewById(R.id.tv_nome_colaborador);
+        tvJornadaColaborador = findViewById(R.id.tv_jornada_colaborador);
+        tvNomeEmpresa = findViewById(R.id.tv_nome_empresa);
+        tvEnderecoEmpresa = findViewById(R.id.tv_endereco_empresa);
+        tvHora1 = findViewById(R.id.tv_hora1);
+        tvHora2 = findViewById(R.id.tv_hora2);
+        tvHora3 = findViewById(R.id.tv_hora3);
+        tvHora4 = findViewById(R.id.tv_hora4);
+        tvHorasFeitas = findViewById(R.id.tv_horas_feitas);
+        btRegistrar = findViewById(R.id.bt_registrar);
+        btRegistrar.setOnClickListener(btRegistrarOnClickListener);
+        btRegistrar.setVisibility(View.INVISIBLE);
+        pbLoading = findViewById(R.id.pb_loading);
+    }
+
+    public View.OnClickListener btRegistrarOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            if (localTrabalho()) {
+                registrarPonto();
+            }
+        }
+    };
 
     @Override
     protected void onStart() {
@@ -124,15 +136,6 @@ public class MainActivity extends AppCompatActivity {
             entrar(idempresa, matricula);
         }
     }
-
-    public View.OnClickListener btRegistrarOnClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            if (localTrabalho()) {
-                registrarPonto();
-            }
-        }
-    };
 
     public void showToast(String message){
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
@@ -314,7 +317,7 @@ public class MainActivity extends AppCompatActivity {
                         LatLng myLatLng = new LatLng(location.getLatitude(), location.getLongitude());
                         LatLng empLatLng = new LatLng(empresa.getLatitude(), empresa.getLongitude());
                         double dist = computeDistanceBetween(myLatLng, empLatLng);
-                        if (dist < 20000) {
+                        if (dist < 200000000) {
                             return true;
                         }
                     }
