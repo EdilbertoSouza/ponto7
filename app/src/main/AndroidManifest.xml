@@ -7,6 +7,8 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
     <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name='android.permission.WAKE_LOCK'/>
+
 
     <!-- DANGEROUS PERMISSIONS -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
@@ -49,6 +51,10 @@
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
             </intent-filter>
         </service>
+
+        <receiver android:name='.alarmManager.AlarmManagerBroadcastReceiver'>
+        </receiver>
+
 
     </application>
 
