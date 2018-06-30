@@ -7,6 +7,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 public class DataHora {
 
@@ -70,6 +71,13 @@ public class DataHora {
             saudacao = "Bom noite!";
         }
         return saudacao;
+    }
+
+    public static long subtrairHorasEmMinutos(String horaIni, String horaFin) {
+        Date dataIni = stoh(horaIni);
+        Date dataFin = stoh(horaFin);
+        long diff = dataFin.getTime() - dataIni.getTime();
+        return TimeUnit.MILLISECONDS.toMinutes(diff);
     }
 
 }
